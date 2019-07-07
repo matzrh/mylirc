@@ -1,0 +1,41 @@
+diff --git a/daemons/lircd.cpp b/daemons/lircd.cpp
+index 4cceab7e..649585b7 100644
+--- a/daemons/lircd.cpp
++++ b/daemons/lircd.cpp
+@@ -1194,8 +1194,8 @@ static void schedule_repeat_timer (struct timespec* last)
+ 	secs = current.tv_sec - last->tv_sec;
+ 	diff = 1000000 * secs + (current.tv_nsec - last->tv_nsec) / 1000;
+ 	usecs = (diff < gap ? gap - diff : 0);
+-	if (usecs < 10)
+-		usecs = 10;
++	if (usecs < 40)
++		usecs = 40;
+ 	log_trace("alarm in %lu usecs", (unsigned long)usecs);
+ 	repeat_timer.it_value.tv_sec = 0;
+ 	repeat_timer.it_value.tv_usec = usecs;
+diff --git a/lib/transmit.c b/lib/transmit.c
+index 178e8899..57df487a 100644
+--- a/lib/transmit.c
++++ b/lib/transmit.c
+@@ -20,7 +20,7 @@
+ 
+ /* if the gap is lower than this value, we will concatenate the
+  * signals and send the signal chain at a single blow */
+-#define LIRCD_EXACT_GAP_THRESHOLD 10000
++#define LIRCD_EXACT_GAP_THRESHOLD 100
+ 
+ #ifdef HAVE_KERNEL_LIRC_H
+ #include <linux/lirc.h>
+diff --git a/lirc_options.conf b/lirc_options.conf
+index 6cc9826d..8d186eab 100644
+--- a/lirc_options.conf
++++ b/lirc_options.conf
+@@ -8,7 +8,7 @@
+ 
+ [lircd]
+ nodaemon        = False
+-driver          = devinput
++driver          = default
+ device          = auto
+ output          = /var/run/lirc/lircd
+ pidfile         = /var/run/lirc/lircd.pid

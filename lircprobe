@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -z $1 ]; then
+	echo "no argument given"
+	exit 1
+fi
+
+for i in /sys/class/rc/rc*; do
+	if [ -e "$i/device/driver/$1" ]; then
+	number=$( echo $i | sed -r 's_/sys/class/rc/rc([0-9]+)_\1_g' )
+	echo -n "/dev/lirc$number"
+	fi
+done

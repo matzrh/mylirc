@@ -1,0 +1,31 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "allwinner,sun4i-a10";
+
+	fragment@0 {
+		target = <&pio>;
+		__overlay__ {
+			gpio_ook_tx_pins: gpio_ook_tx_pins {
+				pins = "PD25";
+				function = "gpio_out";	// out
+			};
+		};
+	};
+
+	fragment@1 {
+                target-path = "/";
+                __overlay__ {
+                        gpio-ook-transmitter {
+                                compatible = "gpio-nocarrier-ir-tx";
+                                pinctrl-names = "default";
+                                pinctrl-0 = <&gpio_ook_tx_pins>;
+                                gpios = <&pio 3 25 0>; 
+                                status = "okay";
+                        };
+                };
+        };
+
+
+};

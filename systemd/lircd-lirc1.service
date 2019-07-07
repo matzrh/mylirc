@@ -6,8 +6,8 @@ Wants=lircd-setup.service
 After=network.target lircd-setup.service lircd.service
 
 [Service]
-Type=notify
-ExecStart=/bin/bash -c '/usr/local/sbin/lircprobe gpio-ook-transmitter | /usr/local/sbin/lircd --device=`xargs` \
+Type=simple
+ExecStart=/bin/bash -c '/usr/local/sbin/lircprobe gpio-ook-transmitter | /usr/sbin/lircd --device=`xargs` \
 				--output=/var/run/lirc/lircd-lirc1 \
                                 --pidfile=/run/lirc/dont-use-lirc1.pid \
 				--nodaemon'

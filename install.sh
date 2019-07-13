@@ -17,6 +17,7 @@ sysdpath=/etc/systemd/system
 rm -v "$confpath/*.conf"
 cp -v configs/*.conf $confpath
 cp -v systemd/*service $sysdpath
+cp -v lircprobe /usr/local/sbin
 
 /bin/systemctl reenable lircd.service
 /bin/systemctl reenable lircd-lirc1.service

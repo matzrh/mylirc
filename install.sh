@@ -7,6 +7,8 @@ fi
 #install special lirc
 /usr/bin/apt-get remove lirc
 /usr/bin/dpkg -i *.deb
+#install dependencies
+/usr/bin/apt-get -f install
 
 confpath=/etc/lirc/lircd.conf.d
 sysdpath=/etc/systemd/system

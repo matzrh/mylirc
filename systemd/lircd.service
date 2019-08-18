@@ -7,7 +7,8 @@ After=network.target lircd-setup.service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '/usr/local/sbin/lircprobe pwm-ir-transmitter | /usr/sbin/lircd --device=`xargs` --nodaemon'
+ExecStart=/bin/bash -c '/usr/local/sbin/lircprobe pwm-ir-transmitter | /usr/sbin/lircd --device=`xargs` --nodaemon --listen \
+			/etc/lirc/lircd.conf.d/irremotes.conf'
 ; User=lirc
 ; Group=lirc
 

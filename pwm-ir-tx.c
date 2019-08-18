@@ -77,9 +77,9 @@ static int pwm_ir_tx(struct rc_dev *dev, unsigned int *txbuf,
 
 	for (i = 0; i < count; i++) {
 		if (i % 2) // space
-			state.enabled=true;
-		else
 			state.enabled=false;
+		else
+			state.enabled=true;
 		pwm_apply_state(pwm,&state);
 
 		edge = ktime_add_us(edge, txbuf[i]);
